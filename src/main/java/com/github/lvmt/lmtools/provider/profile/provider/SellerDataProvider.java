@@ -16,7 +16,7 @@ import com.github.lvmt.lmtools.provider.profile.result.ProfileProviderResultWrap
 public class SellerDataProvider extends AbstractProfileProvider {
 
     @Override
-    public void provider(MultiProfileProviderResultWrapper resultWrapper, ProfileProviderContext ctx) {
+    public void providerDirectly(MultiProfileProviderResultWrapper resultWrapper, ProfileProviderContext ctx) {
         // 处理多个sellerId的情况
         ctx.getSellerIdList().forEach(sellerId -> {
             Map<Long, ProfileProviderResultWrapper> map = resultWrapper.getResultWrapperMap();

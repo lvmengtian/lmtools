@@ -5,6 +5,8 @@ package com.github.lvmt.lmtools.provider;
  * Created on 2021-08-09
  * 查询结果包装类
  */
-public interface IProviderResultWrapper<R> {
-    public R build();
+public interface IProviderResultWrapper<FinalResult> {
+    public FinalResult build();
+
+    default public void makeSafe() {};
 }

@@ -18,7 +18,7 @@ import com.google.common.collect.Lists;
 public class SellerTagProvider extends AbstractProfileProvider {
 
     @Override
-    public void provider(MultiProfileProviderResultWrapper resultWrapper, ProfileProviderContext ctx) {
+    public void providerDirectly(MultiProfileProviderResultWrapper resultWrapper, ProfileProviderContext ctx) {
         // 处理多个sellerId的情况
         int i = 0;
         for (long sellerId : ctx.getSellerIdList()) {

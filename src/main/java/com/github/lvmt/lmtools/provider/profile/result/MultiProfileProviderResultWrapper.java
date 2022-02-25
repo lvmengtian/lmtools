@@ -1,10 +1,9 @@
 package com.github.lvmt.lmtools.provider.profile.result;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import com.github.lvmt.lmtools.provider.IProviderResultWrapper;
 
@@ -21,5 +20,10 @@ public class MultiProfileProviderResultWrapper implements IProviderResultWrapper
     @Override
     public Collection<ProfileProviderResultWrapper> build() {
         return resultWrapperMap.values();
+    }
+
+    @Override
+    public void makeSafe() {
+        resultWrapperMap = new ConcurrentHashMap<>();
     }
 }
