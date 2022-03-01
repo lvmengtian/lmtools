@@ -1,5 +1,14 @@
 package com.github.lvmt.lmtools.constructor.demo.service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.ThreadPoolExecutor;
+
 import com.github.lvmt.lmtools.constructor.demo.model.CommentInfo;
 import com.github.lvmt.lmtools.constructor.demo.model.MarketingInfo;
 import com.github.lvmt.lmtools.constructor.demo.model.ProductDetailsPage;
@@ -13,11 +22,11 @@ public class ProductDetailsPageService {
 
     public static void main(String[] args) {
         ProductDetailsPageService service = new ProductDetailsPageService();
-        service.buildBySerial();
+        //service.buildBySerial();
+        service.buildByConcurrent();
     }
     /**
      * 串行读取
-     * @return
      */
     public ProductDetailsPage buildBySerial() {
         long startTime = System.currentTimeMillis();
@@ -31,8 +40,31 @@ public class ProductDetailsPageService {
         long cost = System.currentTimeMillis() - startTime;
         // 赋值返回
         ProductDetailsPage productDetailsPage = new ProductDetailsPage(productInfo, marketingInfo, commentInfo);
-        System.out.println("productDetailsPage: " + productDetailsPage.toString());
         System.out.println("cost:" + cost + "ms");
         return productDetailsPage;
+    }
+
+    /**
+     * 并行读取
+     */
+    public ProductDetailsPage buildByConcurrent() {
+        try {
+            long startTime = System.currentTimeMillis();
+            // 定义线程池
+            ExecutorService executor = Executors.newFixedThreadPool(5);
+
+            Future<ProductInfo> productInfoFuture = executor.submit(ProductInfo::mockProductInfo);
+            Future<MarketingInfo> marketingInfoFuture = executor.submit(MarketingInfo::mockMarketingInfo);
+            Future<CommentInfo> commentInfoFuture = executor.submit(CommentInfo::mockCommentInfo);
+
+            ProductDetailsPage productDetailsPage = new ProductDetailsPage(productInfoFuture.get(), marketingInfoFuture.get(), commentInfoFuture.get());
+            // 耗时
+            long cost = System.currentTimeMillis() - startTime;
+            System.out.println("cost: " + cost);
+            return productDetailsPage;
+        } catch (Exception e) {
+            // e.printStackTrace();
+        }
+        return null;
     }
 }

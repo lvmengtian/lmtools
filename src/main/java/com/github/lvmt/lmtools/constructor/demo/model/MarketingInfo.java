@@ -3,6 +3,8 @@ package com.github.lvmt.lmtools.constructor.demo.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import sun.swing.StringUIClientPropertyKey;
+
 /**
  * @author lvmengtian <lvmengtian@kuaishou.com>
  * Created on 2022-02-28
@@ -32,5 +34,15 @@ public class MarketingInfo {
 
     public void setCouponInfoList(List<CouponInfo> couponInfoList) {
         this.couponInfoList = couponInfoList;
+    }
+
+    @Override
+    public String toString() {
+        String str = "";
+        for (CouponInfo couponInfo : couponInfoList) {
+            if (!"".equals(str)) { str += ";";}
+            str += couponInfo.toString();
+        }
+        return super.toString();
     }
 }

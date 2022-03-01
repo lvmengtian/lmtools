@@ -95,4 +95,16 @@ public class ProductInfo {
     public void setProductDesc(String productDesc) {
         this.productDesc = productDesc;
     }
+
+    @Override
+    public String toString() {
+        return "ProductInfo{" +
+                "productId='" + productId + '\'' +
+                ", productName='" + productName + '\'' +
+                ", productImgs=" + productImgs +
+                ", productPrice=" + productPrice +
+                ", productStock=" + productStock +
+                ", productDesc='" + productDesc + '\'' +
+                '}';
+    }
 }

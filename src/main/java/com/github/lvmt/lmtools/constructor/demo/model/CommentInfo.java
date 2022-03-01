@@ -72,4 +72,15 @@ public class CommentInfo {
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
+
+    @Override
+    public String toString() {
+        return "CommentInfo{" +
+                "commentId='" + commentId + '\'' +
+                ", productId='" + productId + '\'' +
+                ", userId='" + userId + '\'' +
+                ", content='" + content + '\'' +
+                ", timestamp=" + timestamp +
+                '}';
+    }
 }

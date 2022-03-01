@@ -31,4 +31,9 @@ public class CouponInfo {
     public void setDiscount(int discount) {
         this.discount = discount;
     }
+
+    @Override
+    public String toString() {
+        return String.format("满%s减%s", condition, discount);
+    }
 }
