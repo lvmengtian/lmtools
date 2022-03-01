@@ -16,12 +16,5 @@ public interface IDataConstructorExecutor<
         CTX extends IDataConstructorContext,
         RW extends IDataConstructorResultWrapper<FR>> {
 
-    default FR executor(RW wrapper, CTX ctx, List<? extends IDataConstructor<FR, CTX, RW>> constructorList) {
-        for (IDataConstructor<FR, CTX, RW> constructor : constructorList) {
-            if (constructor.accept(ctx)) {
-                constructor.construct(wrapper, ctx);
-            }
-        }
-        return wrapper.build();
-    }
+    FR executor(RW wrapper, CTX ctx, List<? extends IDataConstructor<FR, CTX, RW>> constructorList);
 }
