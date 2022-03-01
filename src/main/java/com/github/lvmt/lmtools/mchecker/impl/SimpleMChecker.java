@@ -1,5 +1,6 @@
 package com.github.lvmt.lmtools.mchecker.impl;
 
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,8 @@ import com.github.lvmt.lmtools.mchecker.model.MCheckerRuleConfig;
 /**
  * @author lvmengtian <lvmengtian@kuaishou.com>
  * Created on 2022-02-25
+ *
+ * 简单校验器
  */
 public class SimpleMChecker implements IMChecker {
     @Override
@@ -29,10 +32,14 @@ public class SimpleMChecker implements IMChecker {
         for (MCheckerRuleConfig config : ruleList) {
             boolean required = config.isRequired();
             String field = config.getField();
+            List<String> rules = config.getRules();
+
+            // 非必需,跳过校验
             if (!required) {
                 continue;
             }
-            List<String> rules = config.getRules();
+            // TODO 待考虑required是true,但是规则列表是空的情况
+            // 根据规则列表校验
             for (String rule : rules) {
                 Expression expression = parser.parseExpression(rule);
                 Boolean match = expression.getValue(obj, Boolean.class);
