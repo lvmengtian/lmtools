@@ -1,9 +1,15 @@
 package com.github.lvmt.lmtools.helper;
 
+import static com.fasterxml.jackson.databind.type.TypeFactory.defaultInstance;
+
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UncheckedIOException;
+import java.util.Map;
 
 import javax.annotation.Nullable;
+
+import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonFactory.Feature;
@@ -69,6 +75,32 @@ public final class JsonHelper {
         }
         try {
             return MAPPER.readValue(json, valueType);
+        } catch (IOException e) {
+            throw wrapException(e);
+        }
+    }
+
+    public static Map<String, Object> fromJSON(@Nullable String json) {
+        return fromJSON(json, Map.class, String.class, Object.class);
+    }
+
+    private static <K, V, T extends Map<K, V>> T fromJSON(InputStream inputStream,
+            Class<? extends Map> mapType, Class<K> keyType, Class<V> valueType) {
+        try {
+            return MAPPER.readValue(inputStream, defaultInstance().constructMapType(mapType, keyType, valueType));
+        } catch (IOException e) {
+            throw wrapException(e);
+        }
+    }
+
+    private static <K, V, T extends Map<K, V>> T fromJSON(String json, Class<? extends Map> mapType,
+            Class<K> keyType, Class<V> valueType) {
+        if (json == null || "".equals(json)) {
+            json = EMPTY_JSON;
+        }
+        try {
+            return MAPPER.readValue(json,
+                    defaultInstance().constructMapType(mapType, keyType, valueType));
         } catch (IOException e) {
             throw wrapException(e);
         }

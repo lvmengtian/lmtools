@@ -10,7 +10,9 @@ import com.github.lvmt.lmtools.mchecker.model.MCheckerRuleConfig;
  */
 public interface IMChecker {
 
-    <T> void check(T obj, List<MCheckerRuleConfig> ruleList);
+    default <T> void check(T obj, List<MCheckerRuleConfig> ruleList) {
+        check(obj, ruleList, false);
+    };
 
     <T> void check(T obj, List<MCheckerRuleConfig> ruleList, boolean failFast);
 }

@@ -21,11 +21,6 @@ import com.github.lvmt.lmtools.mchecker.model.MCheckerRuleConfig;
  */
 public class SimpleMChecker implements IMChecker {
     @Override
-    public <T> void check(T obj, List<MCheckerRuleConfig> ruleList) {
-        check(obj, ruleList, Boolean.FALSE);
-    }
-
-    @Override
     public <T> void check(T obj, List<MCheckerRuleConfig> ruleList, boolean failFast) {
         SpelExpressionParser parser = new SpelExpressionParser();
         Map<String, String> checkMap = failFast ? null : new HashMap<>();

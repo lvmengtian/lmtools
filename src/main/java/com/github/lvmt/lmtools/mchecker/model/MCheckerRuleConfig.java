@@ -81,6 +81,9 @@ public class MCheckerRuleConfig {
 
     public static List<MCheckerRuleConfig> defaultCfgList4SkuParam() {
         return Lists.newArrayList(
+                new MCheckerRuleConfig("skuExtra", Boolean.TRUE, "skuExtra != null"),
+                new MCheckerRuleConfig("skuExtra.desc", Boolean.TRUE, "skuExtra.desc != null && skuExtra.desc != \"\""),
+                new MCheckerRuleConfig("skuExtra.desc", Boolean.TRUE, "skuExtra.imgList != null && !skuExtra.imgList.isEmpty()"),
                 new MCheckerRuleConfig("skuName", Boolean.TRUE),
                 new MCheckerRuleConfig("skuPrice", Boolean.TRUE, "skuPrice >= 10"),
                 new MCheckerRuleConfig("skuStock", Boolean.TRUE, Lists.newArrayList("skuStock >= 50", "skuStock <= 200"))
