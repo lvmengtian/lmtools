@@ -33,7 +33,7 @@ public class MapMChecker implements IMChecker {
             // 根据规则列表校验
             for (String rule : rules) {
                 Expression expression = parser.parseExpression(rule);
-                Object result = expression.getValue(evaluationContext);
+                Boolean result = expression.getValue(evaluationContext, Boolean.class);
                 System.out.println(result);
             }
         }
