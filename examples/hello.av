@@ -1,0 +1,5 @@
+## examples/hello.av
+let a = 99;
+let b = 0xFF;
+let c = -99;
+a-(b+c) > 100

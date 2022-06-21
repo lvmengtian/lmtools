@@ -34,7 +34,9 @@ public class MapMChecker implements IMChecker {
             for (String rule : rules) {
                 Expression expression = parser.parseExpression(rule);
                 Boolean result = expression.getValue(evaluationContext, Boolean.class);
-                System.out.println(result);
+                if (!Boolean.TRUE.equals(result)) {
+                    System.out.println(field + " rule not match");
+                }
             }
         }
     }
